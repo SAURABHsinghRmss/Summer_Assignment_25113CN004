@@ -1,0 +1,18 @@
+#include <stdio.h>
+int main(){
+    unsigned int n, a;
+    unsigned long int f=1;
+    printf("Enter a number:");
+    scanf("%u", &n);
+    a=n;
+    /*printf("\n a=%u \n",a);*/
+    while (a>=2)
+    {
+        f=f*a;
+        /*printf("\n f=%lu",f);*/
+        a-=1;
+        /*printf("\n a=%u \n",a);*/
+    }
+    printf("\n factorial = %lu",f);
+    return 0;
+}

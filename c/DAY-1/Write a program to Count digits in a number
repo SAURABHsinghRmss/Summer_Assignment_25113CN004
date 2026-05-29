@@ -1,0 +1,13 @@
+#include <stdio.h>
+int main() {
+    unsigned int n, sum=0, a;
+    printf("Enter a number:");
+    scanf("%u", &n);
+    a=n;
+    for(a;a>=1;a=a/10){
+        /*printf("%u \n",a);*/
+        sum++;
+    }
+    printf("The digits in %u is :%u \n",n ,sum);
+    return 0;
+}

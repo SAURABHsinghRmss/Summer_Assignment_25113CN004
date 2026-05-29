@@ -1,0 +1,12 @@
+#include <stdio.h>
+void main(){
+    unsigned long int n, sum=0, i;
+    printf("Enter a positive integer:");
+    scanf("%lu", &n);
+    for(i=1; i<=n; ++i){
+        /*printf("\n%lu ", i);*/
+        sum += i;
+    }
+    printf("\nSum of first %lu natural numbers is: %lu", n, sum);
+
+}

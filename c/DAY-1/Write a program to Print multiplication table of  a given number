@@ -1,0 +1,17 @@
+#include <stdio.h>
+int main(){
+    unsigned int n;
+    unsigned long int t;
+    int a=1;
+    printf("Enter a number:");
+    scanf("%u", &n);
+    printf("Multiplication table of given number\n");
+    while (a<=10)
+    {
+        t=a*n;
+        printf("%u X %d = %lu \n",n ,a ,t);
+        a+=1;
+        printf("\n");
+    }
+    return 0;
+}
