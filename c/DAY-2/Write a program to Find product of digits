@@ -1,0 +1,16 @@
+#include <stdio.h>
+int main(){
+    unsigned long int num, a;
+    unsigned int product=1;
+    int t=1;
+    printf("Enter a number: ");
+    scanf("%lu", &num);
+    for(a=num;(a>0)&&(t!=0);a=a/10){
+        t=a%10;
+        /*printf("\n %d \n",t);*/
+        product=product*t;
+        /*printf("%u \n", product);*/
+    }
+    printf("The product of the digits of %lu is %u", num, product);
+    return 0;
+}
