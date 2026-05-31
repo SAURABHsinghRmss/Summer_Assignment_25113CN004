@@ -1,0 +1,27 @@
+#include <stdio.h>
+int prime(unsigned int num){
+    int i;
+    for(i=2;i<=num/2;i++){
+        if(num%i==0){
+            return 0;
+        }
+    }
+    return 1;
+}
+void main() {
+    int i, j=0;
+    unsigned int num;
+    printf("Enter a number: ");
+    scanf("%d", &num);
+    if(num <= 1){
+        printf("No prime number present in range of given number.");
+     }
+    else{
+        printf("Prime number present in range of given number is:\n");
+        for(i=2;i<=num;i++){
+            if(prime(i)){
+                printf("%d \n", i);
+            }
+        }
+    }
+}
