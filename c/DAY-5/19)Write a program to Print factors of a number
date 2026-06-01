@@ -1,0 +1,42 @@
+#include <stdio.h>
+int prime(unsigned int num){
+    int i, flag = 0;
+    for(i = 2; i <= num/2; ++i){
+        if(num % i == 0){
+            flag = 1;
+            break;
+        }
+    }
+    if(num <= 1){
+        return 0;
+    }
+    else{
+        if (flag == 0)
+            return 1;
+        else
+            return 0;
+    }
+}
+void main(){
+    unsigned int num;
+    int i;
+    printf("Enter a positive integer: ");
+    scanf("%u", &num);
+    if(num <= 0){
+        printf("Please enter a positive integer.");
+        return;
+    }
+    else{
+
+        printf("Factors of %u are:\n ", num);
+        for(i = 1; i <= num; ++i){
+            while(num % i == 0 && prime(i)){
+                printf(" %u ", i);
+                num = num / i;
+                if(num!=1){
+                    printf(" X ");
+                }
+            }
+        }
+    }
+}

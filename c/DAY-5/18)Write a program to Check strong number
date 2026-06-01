@@ -1,0 +1,29 @@
+#include <stdio.h>
+unsigned long int factorial(int n) {
+    if (n == 0 || n == 1) {
+        return 1;
+    }
+    unsigned long int fact = 1;
+    for (int i = 2; i <= n; i++) {
+        fact *= i;
+    }
+    return fact;
+}
+void main(){
+    int n, a, d;
+    unsigned long long int sum=0;
+    printf("Enter number:");
+    scanf("%d",&n);
+    a=n;
+    while(a!=0){
+        d=a%10;
+        sum+=factorial(d);
+        a=a/10;
+    }
+    if(sum==n){
+        printf("%d is a strong number",n);
+    }
+    else{
+        printf("%d is not a strong number",n);
+    }
+}
