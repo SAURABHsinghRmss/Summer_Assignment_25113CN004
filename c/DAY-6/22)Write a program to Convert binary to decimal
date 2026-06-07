@@ -1,0 +1,66 @@
+/*#include <math.h>
+void main(){
+    double n, d, a=1.0, t=0.0;
+    unsigned int num, i=0, j;
+    printf("Enter binary number =");
+    scanf("%lf",&n);
+
+    if(n<0){
+        a=-1.0;
+        n=(double) -n;
+    }
+    num = (unsigned int)n;
+    d= n - num;
+
+    while(num!=0){
+        t+=(num%10)*(pow(2,i++));
+        num=(num/10);
+    }
+    i=1;
+    while(d!=0.0){
+        j=(unsigned int)(d*10);
+        t+=(j/pow(2,i++));
+        d=d*10;
+        d=(d-j);
+    }
+    a=(a*t);
+    printf("Decimal = %lf",a);
+}*/
+#include <stdio.h>
+#include <math.h>
+int main(void) {
+    char str[150], t;
+    double a, b;
+    int j=0;
+    printf("Enter binary number = ");
+    if (scanf("%149s", str) != 1) {
+        printf("Invalid Input!!!\n");
+        return 1;
+    }
+    unsigned int i = 0;
+    while (str[i] != '\0') {
+        printf("Character at index %u: %c\n", i, str[i]);
+        t=str[i];
+        if((t!='1')&&(t!='.')&&(t!='0')){
+            printf("Invalid Input!!!\n");
+            return 1;
+        }
+        if(t=='.'){
+            j=i-1;
+        }
+        i++;
+    }
+    i=0;
+    while(str[i] != '\0'){
+        b=pow(2,j--);
+        if(str[i]=='1'){
+            a+=b;
+        }
+        else if(str[i]=='.'){
+            j++;
+        }
+        i++;
+    }
+    printf("%lf",a);
+    return 0;
+}

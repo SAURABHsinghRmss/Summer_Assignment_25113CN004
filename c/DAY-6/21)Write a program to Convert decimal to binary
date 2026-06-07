@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdio.h>
+void main(){
+    signed int i=0, j=0;
+    unsigned int num;
+    char r[150] ,b[65];
+    double n, d, t, a;
+    printf("Enter a decimal number to convert to binary: ");
+    scanf("%lf",&n);
+    if(n<0){
+        r[0]='-';
+        n=(double) -n;
+        i++;
+    }
+    num = (unsigned int)n;
+    d= n - num;
+    while(num > 0 ){
+        if(num%2==1){
+            b[j]='1';
+        }
+        else{
+            b[j]='0';
+        }
+        num = num / 2;
+        j++;
+    }
+    for(j=j-1;(j>=0);--j){
+        r[i]=b[j];
+        i++;
+    }
+    r[i]='.';
+    while(d > 0){
+        i++;
+        t = d * 2;
+        a=(int)t;
+        if(a==1){
+            r[i]='1';
+        }
+        else{
+            r[i]='0';
+        }
+        d = t - a;
+    }
+    i=i+1;
+    r[i]='\0';
+    printf("Binary equivalent: ");
+    for(i=0;r[i]!='\0';i++){
+        printf("%c",r[i]);
+    }
+}

@@ -1,0 +1,14 @@
+
+#include <stdio.h>
+
+int main() {
+    unsigned int n;
+    printf("Enter a number: ");
+    scanf("%u", &n);
+    while (n) {
+        printf("n before: %u\n", n);
+        n = n & (n - 1);   // assignment happens here,as n is being updated with the new value after performing the bitwise AND operation
+        printf("n after:  %u\n\n", n);
+    }
+    return 0;
+}

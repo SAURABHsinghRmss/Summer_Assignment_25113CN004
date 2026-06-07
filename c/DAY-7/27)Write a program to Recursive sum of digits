@@ -1,0 +1,13 @@
+#include <stdio.h>
+unsigned int sumOfDigits(unsigned int n) {
+    if (n == 0)
+        return 0;
+    return ((n%10) + sumOfDigits(n/10));
+}
+int main() {
+    unsigned int n;
+    printf("Enter a positive integer: ");
+    scanf("%u", &n);
+    printf("Sum of digits of %u is %u\n", n, sumOfDigits(n));
+    return 0;
+}

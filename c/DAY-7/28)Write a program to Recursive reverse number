@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include <math.h>
+unsigned int reverse(unsigned int num,int i){
+    if(num == 0)
+        return 0;
+    i--;
+    return ((num%10)*(pow(10,i)) + (reverse(num/10,i)));
+}
+int main(){
+    unsigned int num, t;
+    int j=0;
+    printf("Enter a number: ");
+    scanf("%u", &num);
+    t=num;
+    while(t!=0){
+        j++;
+        t/=10;
+    }
+    printf("Reversed number: %u\n", reverse(num,j));
+    return 0;
+}

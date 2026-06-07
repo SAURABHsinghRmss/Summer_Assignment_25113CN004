@@ -1,0 +1,23 @@
+#include <stdio.h>
+double power(float x, float n) {
+    double r = 1.0;
+    if (n < 0) {
+        x = 1 / x;
+        n = -n;
+    }
+    for (int i = 0; i < n; i++) {
+        r *= x;
+    }
+    return r;
+}
+int main(){
+    float x, n;
+    double r;
+    printf("Enter the value of x: ");
+    scanf("%f", &x);
+    printf("Enter the value of n: ");
+    scanf("%f", &n);
+    r = power(x, n);
+    printf("%f^(%f) = %lf\n", x, n, r);
+    return 0;
+}
