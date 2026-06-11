@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+void fibonacci(unsigned int n){
+    unsigned long long int a = 0, b = 1, c;
+    if (n <= 0) {
+        printf("wrong input");
+    }
+    else if (n == 1) {
+        printf("The %u th term of the Fibonacci sequence is: %llu", n, a);
+    } else if (n == 2) {
+        printf("The %u term of the Fibonacci sequence is: %llu", n, b);
+    } else {
+        for (unsigned int i = 3; i <= n; i++) {
+            c = a + b;
+            a = b;
+            b = c;
+        }
+        printf("The %u term of the Fibonacci sequence is: %llu", n, c);
+    }
+}
+
+
+int main(){
+    unsigned int n;
+    
+    printf("Enter the term number: ");
+    scanf("%u", &n);
+
+    fibonacci(n);
+    return 0;
+}

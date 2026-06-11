@@ -1,0 +1,21 @@
+#include <stdio.h>
+void palindrome(unsigned long int num){
+    unsigned long int rev=0,t=num;
+    while(t!=0){
+        rev=(rev*10)+(t%10);
+        t=t/10;
+    }
+    if(rev==num){
+        printf("%u is an palindrome number.",num);
+    }
+    else{
+        printf("%u is not an palindrome number. ",num);
+    }
+}
+int main(){
+    unsigned long int num;
+    printf("Enter number = ");
+    scanf("%u",&num);
+    palindrome(num);
+    return 0;
+}
