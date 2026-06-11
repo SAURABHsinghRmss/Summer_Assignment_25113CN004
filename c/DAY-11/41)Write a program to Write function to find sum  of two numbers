@@ -1,0 +1,14 @@
+#include <stdio.h>
+double sum(double a, double b) {
+    return a + b;
+}
+int main(){
+    double x, y;
+    printf("Enter First Number: ");
+    scanf("%lf", &x);
+    printf("Enter Second Number: ");
+    scanf("%lf", &y);
+    double result = sum(x, y);
+    printf("The sum of %.2lf and %.2lf is: %.9lf\n", x, y, result);
+    return 0;
+}
