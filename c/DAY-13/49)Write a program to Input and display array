@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+int* INarray(int s){
+    int *arr=(int*)malloc(s*sizeof(int));
+    if(arr==NULL){
+        printf("Memory allocation failed \n");
+        exit(1);
+    }
+    printf("Enter %d integer : \n",s);
+    for(int i=0 ;i<s ;i++){
+        printf("Element %d = ",i+1);
+        if(scanf("%d",&arr[i])!=1){
+            printf("Invalid input. \n");
+            free(arr);
+            exit(1);
+        }
+    }
+    return arr;
+}
+void OUTarray(int* ptr , int s){
+    printf("You entered : \n");
+    for(int i=0 ;i<s ;i++){
+        printf("%d \n", *(ptr+i));
+    }
+}
+
+int main(){
+    int n;
+    printf("Enter number of elements to enter in an array = ");
+    scanf("%d",&n);
+    if(n<=1){
+        printf("Invalid size. \n");
+        return 1;
+    }
+
+    int *ptr = INarray(n);
+
+    OUTarray(ptr , n);
+
+    return 0;
+}
