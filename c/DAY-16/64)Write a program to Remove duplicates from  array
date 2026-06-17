@@ -1,0 +1,72 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int* INarray(int s) {
+    int *arr = (int*)malloc(s * sizeof(int));
+    if (arr == NULL) {
+        printf("Memory allocation failed\n");
+        exit(1);
+    }
+    printf("Enter %d integers:\n", s);
+    for (int i = 0; i < s; i++) {
+        printf("Element %d = ", i + 1);
+        if (scanf("%d", &arr[i]) != 1) {
+            printf("Invalid input.\n");
+            free(arr);
+            exit(1);
+        }
+    }
+    return arr;
+}
+
+int* REduplicate(int* ptr, int *p) {
+    int *arr = (int*)malloc(*p * sizeof(int));
+    if (arr == NULL) {
+        printf("Memory allocation failed\n");
+        exit(1);
+    }
+
+    int newSize = 0;
+    for (int i = 0; i < *p; i++) {
+        int dup = ptr[i];
+        int found = 0;
+        for (int j = 0; j < newSize; j++) {
+            if (arr[j] == dup) {
+                found = 1;
+                break;
+            }
+        }
+        if (!found) {
+            arr[newSize++] = dup;
+        }
+    }
+
+    *p = newSize;  // update size
+    free(ptr);
+    return arr;
+}
+
+void showARR(int* ptr, int s) {
+    printf("Array after removing duplicates:\n");
+    for (int i = 0; i < s; i++) {
+        printf("%d ", ptr[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int n;
+    printf("Enter number of elements in array = ");
+    scanf("%d", &n);
+    if (n <= 1) {
+        printf("Invalid size.\n");
+        return 1;
+    }
+
+    int *ptr = INarray(n);
+    ptr = REduplicate(ptr, &n);
+    showARR(ptr, n);
+    free(ptr);
+
+    return 0;
+}
