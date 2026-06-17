@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <stdlib.h>
+int* INarray(int s){
+    int *arr=(int*)malloc(s*sizeof(int));
+    if(arr==NULL){
+        printf("Memory allocation failed \n");
+        exit(1);
+    }
+    printf("Enter %d integer : \n",s);
+    for(int i=0 ;i<s ;i++){
+        printf("Element %d = ",i+1);
+        if(scanf("%d",&arr[i])!=1){
+            printf("Invalid input. \n");
+            free(arr);
+            exit(1);
+        }
+    }
+    return arr;
+}
+int* ZshiftARR(int* ptr , int s){
+    int *arr=(int*)malloc(s*sizeof(int));
+    int i,j=0;
+    if(arr==NULL){
+        printf("Memory allocation failed \n");
+        exit(1);
+    }
+    for(i=0 ; i<s ; i++){
+        if(*(ptr+i)!=0){
+            *(arr+j)=*(ptr+i);
+            j++;
+        }
+    }
+    while(j<s){
+        *(arr+i)=0;
+        j++;
+    }
+    return arr;
+}
+
+void showARR(int* ptr , int s){
+    for(int i=0 ; i<s ; i++){
+        printf("%d \n", *(ptr+i));
+    }
+}
+
+int main(){
+    int n;
+    printf("Enter number of elements to enter in an array = ");
+    scanf("%d",&n);
+    if(n<=1){
+        printf("Invalid size. \n");
+        return 1;
+    }
+
+    int *ptr = INarray(n);
+
+    int *ptrOUT= ZshiftARR(ptr , n);
+
+    printf("Shifted zeroes at the end of input array. \n");
+    showARR(ptrOUT , n);
+
+    return 0;
+}
