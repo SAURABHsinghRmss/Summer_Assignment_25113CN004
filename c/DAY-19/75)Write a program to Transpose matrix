@@ -1,0 +1,78 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int* INarray( int n , int m) {
+    int *ptr=(int*)malloc((n*m)*sizeof(int));
+    if(ptr==NULL){
+        printf("Memory Allocation failed!! \n");
+        exit(1);
+    }
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < m; j++) {
+            printf("Element [%d][%d] = ", i+1, j+1);
+            scanf("%d", &ptr[i * m + j]);
+        }
+    }
+    return ptr;
+}
+
+void TRANSmatS(int* ptr , int n ){
+
+    for(int i=0 ; i < n ; i++){
+        for(int j=i+1 ; j < n ; j++){
+            int temp = ptr[i * n + j];
+            ptr[i * n +j] = ptr[j * n + i];
+            ptr[j * n + i] = temp;
+        }
+    }
+}
+
+int* TRANSmatNS(int* ptr, int n, int m) {
+    int *trans = (int*)malloc((n*m) * sizeof(int));
+    if(trans == NULL) {
+        printf("Memory Allocation failed!!\n");
+        exit(1);
+    }
+
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < m; j++) {
+            trans[j*n + i] = ptr[i*m + j];
+        }
+    }
+    return trans;
+}
+
+
+void OUTarray(int* arr, int n , int m) {
+    printf("Resultant array:\n");
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < m; j++) {
+            printf("%d ", arr[i * m + j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int n, m;
+    printf("Enter number of rows = ");
+    scanf("%d", &n);
+    printf("Enter number of columns = ");
+    scanf("%d", &m);
+    if(n <= 1 || m<= 1) {
+        printf("Invalid size.\n");
+        return 1;
+    }
+    int *ptr = INarray(n,m);
+    if(n==m){
+        TRANSmatS(ptr,n);
+        OUTarray(ptr, n , n);
+    }
+    else{
+        int *NSptr = TRANSmatNS(ptr,n,m);
+        OUTarray(NSptr, m , n);
+        free(NSptr);
+    }
+    free(ptr);
+    return 0;
+}
