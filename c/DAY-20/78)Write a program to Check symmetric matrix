@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int* INarray(int n) {
+    int *arr = (int*)malloc(n*n * sizeof(int));
+    if(arr == NULL) {
+        printf("Memory Allocation failed!!\n");
+        exit(1);
+    }
+    printf("Enter elements of %dx%d matrix:\n", n, n);
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            printf("Element [%d][%d] = ", i+1, j+1);
+            scanf("%d", &arr[i*n + j]);
+        }
+    }
+    return arr;
+}
+
+int isSymmetric(int* arr, int n) {
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            if(arr[i*n + j] != arr[j*n + i]) {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
+int main() {
+    int n;
+    printf("Enter size of square matrix to check if its symmetric = ");
+    scanf("%d", &n);
+    if(n <= 1) {
+        printf("Invalid size.\n");
+        return 1;
+    }
+
+    int *matrix = INarray(n);
+
+    if(isSymmetric(matrix, n)) {
+        printf("The matrix is symmetric.\n");
+    } else {
+        printf("The matrix is not symmetric.\n");
+    }
+
+    free(matrix);
+    return 0;
+}

@@ -1,0 +1,76 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int* INarray(int n, int m) {
+    int *arr = (int*)malloc(n*m * sizeof(int));
+    if(arr == NULL) {
+        printf("Memory Allocation failed!!\n");
+        exit(1);
+    }
+    printf("Enter elements of %dx%d matrix:\n", n, m);
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < m; j++) {
+            printf("Element [%d][%d] = ", i+1, j+1);
+            scanf("%d", &arr[i*m + j]);
+        }
+    }
+    return arr;
+}
+
+int* MULmat(int* ptr1, int* ptr2, int n, int m, int p) {
+    int *arr = (int*)malloc(n*p * sizeof(int));
+    if(arr == NULL) {
+        printf("Memory Allocation failed!!\n");
+        exit(1);
+    }
+
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < p; j++) {
+            arr[i*p + j] = 0;
+            for(int k = 0; k < m; k++) {
+                arr[i*p + j] += ptr1[i*m + k] * ptr2[k*p + j];
+            }
+        }
+    }
+    return arr;
+}
+
+void OUTarray(int* arr, int n, int m) {
+    printf("Resultant matrix:\n");
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < m; j++) {
+            printf("%d ", arr[i*m + j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int n, m, o, p;
+    printf("\nFOR FIRST MATRIX : \n");
+    printf("Enter number of rows of first matrix : ");
+    scanf("%d", &n);
+    printf("Enter number of columns of first matrix : ");
+    scanf("%d",&m);
+    printf("\nFOR SECOND MATRIX : \n");
+    printf("Enter number of rows of Second matrix : ");
+    scanf("%d", &o);
+    printf("Enter number of columns of second matrix : ");
+    scanf("%d", &p);
+
+    if(m==o){
+        int *ptr1 = INarray(n, m);
+        int *ptr2 = INarray(m, p);
+
+        int *arr = MULmat(ptr1, ptr2, n, m, p);
+        OUTarray(arr, n, p);
+
+        free(ptr1);
+        free(ptr2);
+        free(arr);
+    }
+    else{
+        printf("Matrix multiplication is not possible!!!");
+    }
+    return 0;
+}
