@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+char* getString(int *len) {
+    printf("Enter a sentence: ");
+    int size = 50;
+    *len = 0;
+    char *str = (char*)malloc(size * sizeof(char));
+    if(str == NULL) {
+        printf("Memory allocation failed!\n");
+        exit(1);
+    }
+
+    int ch;
+    while((ch = getchar()) != '\n' && ch != EOF) {
+        if(*len >= size - 1) {
+            size *= 2;
+            str = (char*)realloc(str, size * sizeof(char));
+            if(str == NULL) {
+                printf("Memory reallocation failed!\n");
+                exit(1);
+            }
+        }
+        str[(*len)++] = (char)ch;
+    }
+    str[*len] = '\0';
+    return str;
+}
+
+char* removeDuplicatesCaseInsensitive(char *str, int *len) {
+    int freq[256] = {0};  // frequency array for lowercase chars
+
+    char *result = (char*)malloc(*len + 1);
+    if(result == NULL) {
+        printf("Memory allocation failed!\n");
+        exit(1);
+    }
+
+    int j = 0;
+    for(int i = 0; i < *len; i++) {
+        unsigned char ch = str[i];
+
+        if(isalnum(ch)) {
+            unsigned char lower = tolower(ch);  // normalize for duplicate check
+            if(freq[lower] == 0) {
+                result[j++] = ch;  // keep original case
+                freq[lower] = 1;
+            }
+        } else {
+            result[j++] = ch;  // always keep spaces/punctuation
+        }
+    }
+
+    result[j] = '\0';
+    return result;
+}
+
+int main() {
+    int len = 0;
+    char *str = getString(&len);
+
+    char *unique = removeDuplicatesCaseInsensitive(str, &len);
+    printf("String after removing duplicates (case-insensitive): %s\n", unique);
+
+    free(str);
+    free(unique);
+    return 0;
+}

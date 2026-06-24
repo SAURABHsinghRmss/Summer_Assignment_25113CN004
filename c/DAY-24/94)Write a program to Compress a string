@@ -1,0 +1,73 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char* getString(int *len) {
+    printf("Enter a string: ");
+    int size = 10;
+    *len = 0; 
+    char *str = (char*)malloc(size * sizeof(char));
+    if(str == NULL) {
+        printf("Memory allocation failed!\n");
+        exit(1);
+    }
+
+    int ch;
+    while((ch = getchar()) != '\n' && ch != EOF) {
+        if(*len >= size - 1) {
+            size *= 2;
+            str = (char*)realloc(str, size * sizeof(char));
+            if(str == NULL) {
+                printf("Memory reallocation failed!\n");
+                exit(1);
+            }
+        }
+        str[(*len)++] = (char)ch;
+    }
+    str[*len] = '\0';
+    return str;
+}
+
+char* compressString(char *str,int *len) {
+    char *result = (char*)malloc(2 * (*len) + 1);
+    if(result == NULL) {
+        printf("Memory allocation failed!\n");
+        exit(1);
+    }
+
+    int i = 0, j = 0;
+    while(i < *len) {
+        char current = str[i];
+        int count = 1;
+
+        while(i + 1 < *len && str[i] == str[i+1]) {
+            count++;
+            i++;
+        }
+
+        result[j++] = current;
+        j += sprintf(result + j, "%d", count);
+        i++;
+    }
+
+    result[j] = '\0';
+
+    if(strlen(result) >= *len) {
+        free(result);
+        return strdup(str);
+    }
+
+    return result;
+}
+
+
+int main() {
+    int len = 0;
+    char *str = getString(&len);
+
+    char *compressed = compressString(str,&len);
+    printf("Compressed string: %s\n", compressed);
+
+    free(compressed);
+    return 0;
+}
