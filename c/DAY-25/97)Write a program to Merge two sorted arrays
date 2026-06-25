@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int* getARR(int *len) {
+    printf("Enter number of elements: ");
+    scanf("%d", len);
+
+    int *arr = (int*)malloc((*len) * sizeof(int));
+    if(arr == NULL) {
+        printf("Memory allocation failed!\n");
+        exit(1);
+    }
+
+    printf("Enter %d sorted elements:\n", *len);
+    for(int i = 0; i < *len; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    return arr;
+}
+
+int* mergeARR(int *arr1, int *arr2, int len1, int len2, int *mergedLen) {
+    int *merged = (int*)malloc((len1 + len2) * sizeof(int));
+    if(merged == NULL) {
+        printf("Memory allocation failed!\n");
+        exit(1);
+    }
+
+    int i = 0, j = 0, k = 0;
+    while(i < len1 && j < len2) {
+        int val;
+        if(arr1[i] < arr2[j]) {
+            val = arr1[i++];
+        } 
+        else if(arr2[j] < arr1[i]) {
+            val = arr2[j++];
+        } 
+        else { 
+            val = arr1[i];
+            i++;
+            j++;
+        }
+
+        if(k == 0 || merged[k-1] != val) {
+            merged[k++] = val;
+        }
+    }
+
+    while(i < len1) {
+        if(k == 0 || merged[k-1] != arr1[i]) {
+            merged[k++] = arr1[i];
+        }
+        i++;
+    }
+
+    while(j < len2) {
+        if(k == 0 || merged[k-1] != arr2[j]) {
+            merged[k++] = arr2[j];
+        }
+        j++;
+    }
+
+    *mergedLen = k;
+    return merged;
+}
+
+void showARR(int *arr, int len) {
+    for(int i = 0; i < len; i++) {
+        printf("%d  ", arr[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int len1 = 0;
+    int *arr1 = getARR(&len1);
+
+    int len2 = 0;
+    int *arr2 = getARR(&len2);
+
+    int mergedLen = 0;
+    int *merged = mergeARR(arr1, arr2, len1, len2, &mergedLen);
+
+    printf("Merged sorted array without duplicates: ");
+    showARR(merged, mergedLen);
+
+    free(arr1);
+    free(arr2);
+    free(merged);
+    return 0;
+}

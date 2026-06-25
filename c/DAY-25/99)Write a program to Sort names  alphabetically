@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char** getString(int count) {
+    char **str = (char**)malloc(count * sizeof(char*));
+    if(str == NULL) {
+        printf("Memory allocation failed!\n");
+        exit(1);
+    }
+    getchar(); 
+
+    for(int j = 0; j < count; j++) {
+        printf("%d) ", j+1);
+        int size = 10;
+        int len = 0;
+        str[j] = (char*)malloc(size * sizeof(char));
+        if(str[j] == NULL) {
+            printf("Memory allocation failed!\n");
+            exit(1);
+        }
+
+        int ch;
+        while((ch = getchar()) != '\n' && ch != EOF) {
+            if(len >= size - 1) {
+                size *= 2;
+                str[j] = (char*)realloc(str[j], size * sizeof(char));
+                if(str[j] == NULL) {
+                    printf("Memory reallocation failed!\n");
+                    exit(1);
+                }
+            }
+            str[j][len++] = (char)ch;
+        }
+        str[j][len] = '\0'; 
+    }
+    return str;
+}
+
+void sortNAMES(char **names, int n) {
+    for(int i = 0; i < n-1; i++) {
+        for(int j = i+1; j < n; j++) {
+            if(strcmp(names[i], names[j]) > 0) {
+                char temp[100];
+                strcpy(temp, names[i]);
+                strcpy(names[i], names[j]);
+                strcpy(names[j], temp);
+            }
+        }
+    }
+}
+
+void showNAMES(char **names, int n) {
+    printf("\nSorted names:\n");
+    for(int i = 0; i < n; i++) {
+        printf("%d: %s\n", i+1, names[i]);
+    }
+}
+
+int main() {
+    int n;
+    printf("Number of names: ");
+    scanf("%d", &n);
+
+    char **names = getString(n);
+
+    sortNAMES(names, n);
+
+    showNAMES(names, n);
+
+    for(int i = 0; i < n; i++) {
+        free(names[i]);
+    }
+    free(names);
+
+    return 0;
+}

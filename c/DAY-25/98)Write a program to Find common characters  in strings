@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char* getString(int *len) {
+    printf("Enter a string: ");
+    int size = 10;
+    *len = 0; 
+    char *str = (char*)malloc(size * sizeof(char));
+    if(str == NULL) {
+        printf("Memory allocation failed!\n");
+        exit(1);
+    }
+
+    int ch;
+    while((ch = getchar()) != '\n' && ch != EOF) {
+        if(*len >= size - 1) {
+            size *= 2;
+            str = (char*)realloc(str, size * sizeof(char));
+            if(str == NULL) {
+                printf("Memory reallocation failed!\n");
+                exit(1);
+            }
+        }
+        str[(*len)++] = (char)ch;
+    }
+    str[*len] = '\0';
+    return str;
+}
+
+void findCommonChars(char *str1, char *str2) {
+    int freq1[256] = {0};
+    int freq2[256] = {0};
+
+    for(int i = 0; str1[i] != '\0'; i++) {
+        freq1[(unsigned char)str1[i]] = 1;
+    }
+
+    for(int i = 0; str2[i] != '\0'; i++) {
+        freq2[(unsigned char)str2[i]] = 1;
+    }
+
+    printf("Common characters: ");
+    for(int i = 0; i < 256; i++) {
+        if(freq1[i] && freq2[i]) {
+            printf("%c ", i);
+        }
+    }
+    printf("\n");
+}
+
+int main() {
+    int len1 = 0;
+    char *str1 = getString(&len1);
+    int len2 = 0;
+    char *str2 = getString(&len2);
+
+    findCommonChars(str1, str2);
+
+    free(str1);
+    free(str2);  
+    return 0;
+}
